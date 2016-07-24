@@ -9,17 +9,17 @@ UI & DOM course
 
 #Project Description
 
-Implement a client-side JavaScript application using the HTML graphic APIs � canvas and SVG.
+Implement a client-side JavaScript application using the HTML graphic APIs - canvas and SVG.
 
 The project can be a game, web statistics or anything else. Sample applications:
 *   Chess
 *   Backgammon
-*   Any jumping game � Super Mario, Bomberman or else
-*   Statistics application � app showing different charts, based on received data
+*   Any jumping game - Super Mario, Bomberman or else
+*   Statistics application - app showing different charts, based on received data
 *   Minesweeper
 *   Solitaire
 *   Bridge-Belote
-*   Paint-like application � drawing shapes, lines, etc
+*   Paint-like application - drawing shapes, lines, etc
 
 ##General Requirements
 Please define and implement the following assets in your project:
@@ -57,7 +57,7 @@ Put the following in a ZIP archive and submit it (each team member submits the s
 *   The **complete source code**
 *   **Brief documentation** of your project (2-3 pages). It should provide the following information (in brief):
     *   **Team name** and **list of team members**
-    *   Project purpose � **what problem do you solve?**
+    *   Project purpose - **what problem do you solve?**
     *   The **URL of your Git repository**
     *   Any other information (optionally)
 *   Optionally provide a presentation designed for the project defense
