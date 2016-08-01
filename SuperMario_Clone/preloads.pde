@@ -28,6 +28,11 @@
                   graphics/backgrounds/bush-03.gif,
                   graphics/backgrounds/bush-04.gif,
                   graphics/backgrounds/bush-05.gif,
+                  graphics/backgrounds/bush-06.gif,
+                  graphics/backgrounds/bush-07.gif,
+
+                  graphics/backgrounds/berries-01.gif,
+                  graphics/backgrounds/berries-02.gif,
 
                   graphics/backgrounds/cave-corner-left.gif,
                   graphics/backgrounds/cave-corner-right.gif,
@@ -49,6 +54,7 @@
                   graphics/backgrounds/nightsky_fg.gif,
                   graphics/backgrounds/sky.gif,
                   graphics/backgrounds/sky_2.gif,
+                  graphics/backgrounds/level_1.gif,
 
                   graphics/decals/100.gif,
                   graphics/decals/200.gif,
