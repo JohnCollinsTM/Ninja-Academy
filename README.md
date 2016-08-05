@@ -3,7 +3,6 @@
 ###:mortar_board:Team Members
 | Name              | Academy Username      	|
 |-------------------|-------------------|
-|                   | :white_check_mark:|
 |Илиян Купенов |__Ilian_Iliev_2__	        |
 |Борислав Попниколов      |__bpopnikolov__       	|
 |Тони Николов    |__Tony_Nikolov__            	|		
