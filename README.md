@@ -1,11 +1,17 @@
-# JohnCollins-REPO
-Repository for the team project in the JavaScript DOM & UI: course at Telerik Academy 2016
+<h1 align="center">JavaScript DOM & UI: Teamwork Assignment - Team "John Collins"</h1>
 
-#JavaScript DOM & UI: Teamwork Assignment
-*****************************************
+###:mortar_board:Team Members
+| Name              | Academy Username      	|
+|-------------------|-------------------|
+|                   | :white_check_mark:|
+|Илиян Купенов |__Ilian_Iliev_2__	        |
+|Борислав Попниколов      |__bpopnikolov__       	|
+|Тони Николов    |__Tony_Nikolov__            	|		
+|Моника Димчева |__Monika_Dimcheva__    	|	
+|Георги Калинков |__Georgi_Kalinkov__ |
+|Иван Ангелов      |__Hinkey__    	 	|	
 
-This document describes the teamwork assignment for Telerik Academy students in JavaScript
-UI & DOM course
+<h2 align="center">JavaScript DOM & UI: Teamwork Assignment July/August 2016</h2>
 
 #Project Description
 
