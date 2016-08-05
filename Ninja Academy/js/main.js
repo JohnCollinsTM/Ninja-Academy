@@ -2,28 +2,22 @@
 
 /*globals Phaser*/
 
-var gameState = {
-    //Executed at the beginning
-    //Used to load images and audio
-    preload: function() {  
+var game = new Phaser.Game(1280, 720, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
-    },
+//Executed at the beginning
+//Used to load images and audio
+function preload() {
+    game.load.image('background', '..\content\images\map-main-background\background-half-hd.jpg');
+}
 
-    //Used to set up the game, display sprites, etc.
-    create: function() {
+//Used to set up the game, display sprites, etc.
+function create() {
+    game.add.sprite(0, 0, 'background');
+}
 
-    },
-
-    //Called 60 times per second and contains the game's logic
-    //Used to update game states, update sprites, read keyboard and mouse clicks
-    update: function() {
-
-    },
-};
-
-//Creates a WIDTH x HEIGHT game
-var game = new Phaser.Game(1280, 720);
-
-game.state.add('gameState', gameState);
+//Called 60 times per second and contains the game's logic
+//Used to update game states, update sprites, read keyboard and mouse clicks
+function update() {
+}
 
 game.state.start();
