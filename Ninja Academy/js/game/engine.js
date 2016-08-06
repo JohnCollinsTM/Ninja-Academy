@@ -1,12 +1,12 @@
 /// <reference path="..\..\typings\index.d.ts" />
 
-/// <reference path="player.js" />
+/// <reference path="player-male.js" />
 
 /*globals Phaser, maleNinja*/
 
-"use strict";
-
 (function () {
+    'use strict';
+
     let game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
         preload: preload,
         create: create,
@@ -48,8 +48,8 @@
         // create ground platform
         for (var i = 0; i < 10; i += 1) {
             var ground = platforms.create(
-                i * 100, 
-                game.world.height - 130, 
+                i * 100,
+                game.world.height - 130,
                 'ground');
 
             ground.scale.setTo(1, 1);
@@ -61,11 +61,11 @@
         ledge.scale.setTo(1, 0.5);
         ledge.body.immovable = true;
 
-        let rightLedge = platforms.create(450 , 250, 'right-ledge');
+        let rightLedge = platforms.create(450, 250, 'right-ledge');
         rightLedge.scale.setTo(1, 0.5);
         rightLedge.body.immovable = true;
 
-        let leftLedge = platforms.create(250 , 250, 'left-ledge');
+        let leftLedge = platforms.create(250, 250, 'left-ledge');
         leftLedge.scale.setTo(1, 0.5);
         leftLedge.body.immovable = true;
 
