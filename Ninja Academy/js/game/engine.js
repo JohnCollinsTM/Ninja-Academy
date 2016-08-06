@@ -15,7 +15,7 @@
         update: update
     });
 
-    let cursors;
+    let keyState;
 
     function preload() {
         game.load.image('background', 'content/background-half-hd.jpg');
@@ -70,20 +70,20 @@
         maleNinja.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 10, true);
 
         //  Our controls.
-        cursors = game.input.keyboard.createCursorKeys();
+        keyState = game.input.keyboard.createCursorKeys();
     }
 
     function update() {
         game.physics.arcade.collide(maleNinja, platforms);
         maleNinja.body.velocity.x = 0;
 
-        if (cursors.left.isDown) {
+        if (keyState.left.isDown) {
 
             maleNinja.body.velocity.x = -150;
 
             maleNinja.animations.play('left');
         }
-        else if (cursors.right.isDown) {
+        else if (keyState.right.isDown) {
 
             maleNinja.body.velocity.x = 150;
 
@@ -98,7 +98,7 @@
         }
 
         //  if touching ground, you can jump.
-        if (cursors.up.isDown && maleNinja.body.touching.down) {
+        if (keyState.up.isDown && maleNinja.body.touching.down) {
             maleNinja.body.velocity.y = -350;
         }
     }
