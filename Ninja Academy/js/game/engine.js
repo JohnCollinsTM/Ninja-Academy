@@ -57,36 +57,36 @@
         }
 
         //  platforms
-        let ledge = platforms.create(350, 250, 'ledge');
+        let ledge = platforms.create(350, 150, 'ledge');
         ledge.scale.setTo(1, 0.5);
         ledge.body.immovable = true;
 
-        let rightLedge = platforms.create(450, 250, 'right-ledge');
+        let rightLedge = platforms.create(450, 150, 'right-ledge');
         rightLedge.scale.setTo(1, 0.5);
         rightLedge.body.immovable = true;
 
-        let leftLedge = platforms.create(250, 250, 'left-ledge');
+        let leftLedge = platforms.create(250, 150, 'left-ledge');
         leftLedge.scale.setTo(1, 0.5);
         leftLedge.body.immovable = true;
 
-        let leftSideLedge = platforms.create(0, 350, 'right-ledge');
+        let leftSideLedge = platforms.create(0, 300, 'right-ledge');
         leftSideLedge.scale.setTo(1, 0.5);
         leftSideLedge.body.immovable = true;
 
-        leftSideLedge = platforms.create(675, 100, 'left-ledge');
+        leftSideLedge = platforms.create(725, 150, 'left-ledge');
         leftSideLedge.scale.setTo(1, 0.5);
         leftSideLedge.body.immovable = true;
 
-        let rightSideLedge = platforms.create(675, 350, 'left-ledge');
+        let rightSideLedge = platforms.create(675, 300, 'left-ledge');
         rightSideLedge.scale.setTo(1, 0.5);
         rightSideLedge.body.immovable = true;
 
-        rightSideLedge = platforms.create(0, 100, 'right-ledge');
+        rightSideLedge = platforms.create(-55, 150, 'right-ledge');
         rightSideLedge.scale.setTo(1, 0.5);
         rightSideLedge.body.immovable = true;
 
         // The player and its settings
-        maleNinja = game.add.sprite(0, 250, 'ninjarun');
+        maleNinja = game.add.sprite(0, 200, 'ninjarun');
         maleNinja.scale.setTo(0.7, 0.7);
 
         //  We need to enable physics on the player
