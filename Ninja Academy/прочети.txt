@@ -3,4 +3,3 @@ How to run
 2. execute : npm install http-server -g
 3. execute : http-server
 4. open in browser localhost:8080
-hint: ctrl + f5 in browser might solve if you have troubles loading
