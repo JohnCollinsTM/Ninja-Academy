@@ -18,7 +18,7 @@
     let keyState;
 
     function preload() {
-        game.load.image('background', 'content/background-half-hd.jpg');
+        game.load.image('background', '../../content/images/map-main-background/background-half-hd.jpg');
 
         game.load.image('ground', 'content/platform.png');
 
