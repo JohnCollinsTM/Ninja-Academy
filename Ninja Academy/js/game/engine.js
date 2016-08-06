@@ -2,9 +2,7 @@
 
 /// <reference path="player.js" />
 
-/// <reference path="platforms.js" />
-
-/*globals Phaser, platforms, maleNinja*/
+/*globals Phaser, maleNinja*/
 
 "use strict";
 
@@ -34,6 +32,8 @@
             'content/ninjarun.png',
             'content/ninjarun.json');
     }
+
+    let platforms;
 
     function create() {
         game.physics.startSystem(Phaser.Physics.ARCADE);
