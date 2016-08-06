@@ -4,7 +4,7 @@
 
 /*globals Phaser, maleNinja*/
 
-(function () {
+(function() {
     'use strict';
 
     let game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
@@ -14,6 +14,7 @@
     });
 
     let keyState;
+    let platforms;
 
     function preload() {
         game.load.image('background', '../../content/images/forest-background.png');
@@ -26,7 +27,6 @@
 
         game.load.image('skull', '../../content/images/tiles/graveyard-map-tiles/Bones (2).png');
         game.load.image('bones', '../../content/images/tiles/graveyard-map-tiles/Bones (3).png');
-
         game.load.image('bush-one', '../../content/images/objects/graveyard-map-objects/Bush (1).png');
         game.load.image('bush-two', '../../content/images/objects/graveyard-map-objects/Bush (2).png');
         game.load.image('tree', '../../content/images/objects/graveyard-map-objects/Tree.png');
@@ -37,11 +37,11 @@
 
         game.load.atlasJSONHash(
             'ninjarun',
-            'content/ninjarun.png',
-            'content/ninjarun.json');
+            'content/male-ninja/ninja.png',
+            'content/male-ninja/ninja.json');
     }
 
-    let platforms;
+
 
     function create() {
         game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -93,32 +93,6 @@
         rightSideLedge.scale.setTo(1, 0.5);
         rightSideLedge.body.immovable = true;
 
-        let tree = platforms.create(300, 310, 'tree');
-        tree.scale.setTo(0.7, 0.7);
-        tree.body.immovable = true;
-
-        // The player and its settings
-        maleNinja = game.add.sprite(0, 200, 'ninjarun');
-        maleNinja.scale.setTo(0.7, 0.7);
-
-        //  We need to enable physics on the player
-        game.physics.arcade.enable(maleNinja);
-
-        //  Player physics properties. Give the little guy a slight bounce.
-        maleNinja.body.bounce.y = 0.15;
-        maleNinja.body.gravity.y = 500;
-        maleNinja.body.collideWorldBounds = true;
-
-        //  Our two animations, walking left and right.
-        maleNinja.animations.add('left', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 8, true);
-        maleNinja.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 10, true);
-
-        let skull = game.add.sprite(0, 450, 'skull');
-        skull.scale.setTo(0.5, 0.5);
-
-        let bones = game.add.sprite(530, 445, 'bones');
-        bones.scale.setTo(0.5, 0.5);
-
         let bushOne = game.add.sprite(130, 410, 'bush-one');
         bushOne.scale.setTo(0.7, 0.7);
 
@@ -133,37 +107,75 @@
         let tombStone = game.add.sprite(-20, 405, 'tomb-stone');
         tombStone.scale.setTo(0.9, 0.9);
 
-        //  Our controls.
-        keyState = game.input.keyboard.createCursorKeys();
+        let tree = platforms.create(300, 310, 'tree');
+        tree.scale.setTo(0.7, 0.7);
+        tree.body.immovable = true;
+        // The player and its settings
+        maleNinja = game.add.sprite(0, 0, 'ninjarun');
+
+        //  We need to enable physics on the player
+        game.physics.arcade.enable(maleNinja);
+
+        //  Player physics properties. Give the little guy a slight bounce.
+        maleNinja.body.bounce.y = 0.15;
+        maleNinja.body.gravity.y = 500;
+        maleNinja.body.collideWorldBounds = true;
+
+        //  Our two animations, walking left and right.
+        maleNinja.animations.add('left', [51, 52, 53, 54, 55, 56, 57, 58, 59, 60], 10, true);
+        maleNinja.animations.add('right', [51, 52, 53, 54, 55, 56, 57, 58, 59, 60], 10, true);
+        maleNinja.animations.add('idle', [10, 11, 12, 13, 14, 15, 16, 17, 18, 19], 10, true);
+        maleNinja.animations.add('attack', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 10, true);
+        maleNinja.animations.add('jump', [20, 21, 22, 23, 24, 25, 26, 27, 28, 29], 10, true);
+
+        keyState = {
+            right: this.input.keyboard.addKey(Phaser.Keyboard.RIGHT),
+            left: this.input.keyboard.addKey(Phaser.Keyboard.LEFT),
+            up: this.input.keyboard.addKey(Phaser.Keyboard.UP),
+            attack: this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_1)
+        }
+
+
+
+        let skull = game.add.sprite(0, 450, 'skull');
+        skull.scale.setTo(0.5, 0.5);
+
+        let bones = game.add.sprite(640, 450, 'bones');
+        bones.scale.setTo(0.5, 0.5);
+
+
     }
 
     function update() {
         game.physics.arcade.collide(maleNinja, platforms);
         maleNinja.body.velocity.x = 0;
 
+
         if (keyState.left.isDown) {
-
-            maleNinja.body.velocity.x = -200;
-
             maleNinja.animations.play('left');
-        }
-        else if (keyState.right.isDown) {
+            maleNinja.scale.x = -1;
+            maleNinja.body.velocity.x = -150;
+        } else if (keyState.attack.isDown) {
 
-            maleNinja.body.velocity.x = 200;
+            maleNinja.animations.play('attack');
+
+        } else if (keyState.right.isDown) {
+
+            maleNinja.body.velocity.x = 150;
 
             maleNinja.animations.play('right');
-        }
-        else {
+            maleNinja.scale.x = 1;
+        } else {
             //  stand still / idle
-            maleNinja.animations.stop();
 
-            maleNinja.frame = 4;
+            maleNinja.animations.play('idle');
+
             // animation to be added
         }
 
         //  if touching ground, you can jump.
         if (keyState.up.isDown && maleNinja.body.touching.down) {
-            maleNinja.body.velocity.y = -420;
+            maleNinja.body.velocity.y = -350;
         }
     }
-} ());
+}());
