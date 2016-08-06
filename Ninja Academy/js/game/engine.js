@@ -27,6 +27,14 @@
         game.load.image('skull', '../../content/images/tiles/graveyard-map-tiles/Bones (2).png');
         game.load.image('bones', '../../content/images/tiles/graveyard-map-tiles/Bones (3).png');
 
+        game.load.image('bush-one', '../../content/images/objects/graveyard-map-objects/Bush (1).png');
+        game.load.image('bush-two', '../../content/images/objects/graveyard-map-objects/Bush (2).png');
+        game.load.image('tree', '../../content/images/objects/graveyard-map-objects/Tree.png');
+        game.load.image('dead-bush', '../../content/images/objects/graveyard-map-objects/DeadBush.png');
+        game.load.image('skeleton', '../../content/images/objects/graveyard-map-objects/Skeleton.png');
+        game.load.image('arrow-sign', '../../content/images/objects/graveyard-map-objects/ArrowSign.png');
+        game.load.image('tomb-stone', '../../content/images/objects/graveyard-map-objects/TombStone (2).png');
+
         game.load.atlasJSONHash(
             'ninjarun',
             'content/ninjarun.png',
@@ -57,15 +65,15 @@
         }
 
         //  platforms
-        let ledge = platforms.create(350, 150, 'ledge');
+        let ledge = platforms.create(345, 150, 'ledge');
         ledge.scale.setTo(1, 0.5);
         ledge.body.immovable = true;
 
-        let rightLedge = platforms.create(450, 150, 'right-ledge');
+        let rightLedge = platforms.create(445, 150, 'right-ledge');
         rightLedge.scale.setTo(1, 0.5);
         rightLedge.body.immovable = true;
 
-        let leftLedge = platforms.create(250, 150, 'left-ledge');
+        let leftLedge = platforms.create(245, 150, 'left-ledge');
         leftLedge.scale.setTo(1, 0.5);
         leftLedge.body.immovable = true;
 
@@ -84,6 +92,10 @@
         rightSideLedge = platforms.create(-55, 150, 'right-ledge');
         rightSideLedge.scale.setTo(1, 0.5);
         rightSideLedge.body.immovable = true;
+
+        let tree = platforms.create(300, 310, 'tree');
+        tree.scale.setTo(0.7, 0.7);
+        tree.body.immovable = true;
 
         // The player and its settings
         maleNinja = game.add.sprite(0, 200, 'ninjarun');
@@ -104,8 +116,22 @@
         let skull = game.add.sprite(0, 450, 'skull');
         skull.scale.setTo(0.5, 0.5);
 
-        let bones = game.add.sprite(640, 450, 'bones');
+        let bones = game.add.sprite(530, 445, 'bones');
         bones.scale.setTo(0.5, 0.5);
+
+        let bushOne = game.add.sprite(130, 410, 'bush-one');
+        bushOne.scale.setTo(0.7, 0.7);
+
+        let bushTwo = game.add.sprite(650, 410, 'bush-two');
+
+        let skeleton = game.add.sprite(400, 110, 'skeleton');
+        skeleton.scale.setTo(0.8, 0.8);
+
+        let deadBush = game.add.sprite(720, 100, 'dead-bush');
+        deadBush.scale.setTo(0.7, 0.7);
+
+        let tombStone = game.add.sprite(-20, 405, 'tomb-stone');
+        tombStone.scale.setTo(0.9, 0.9);
 
         //  Our controls.
         keyState = game.input.keyboard.createCursorKeys();
