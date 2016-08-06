@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: black;
-    background-image: url('../content/images/map-main-background/background-blur-full-hd.jpg');
+    background-image: url('../content/images/blur-background.png');
 }
 
 canvas {
