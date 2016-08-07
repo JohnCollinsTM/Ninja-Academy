@@ -124,11 +124,11 @@
         maleNinja.anchor.setTo(0.5);
 
         //  Our two animations, walking left and right.
-        maleNinja.animations.add('left', [51, 52, 53, 54, 55, 56, 57, 58, 59, 60], 10, true);
-        maleNinja.animations.add('right', [51, 52, 53, 54, 55, 56, 57, 58, 59, 60], 10, true);
-        maleNinja.animations.add('idle', [10, 11, 12, 13, 14, 15, 16, 17, 18, 19], 10, true);
-        maleNinja.animations.add('attack', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 10, true);
-        maleNinja.animations.add('jump', [20, 21, 22, 23, 24, 25, 26, 27, 28, 29], 10, true);
+        maleNinja.animations.add('left', [51, 52, 53, 54, 55, 56, 57, 58, 59, 60], 20, true);
+        maleNinja.animations.add('right', [51, 52, 53, 54, 55, 56, 57, 58, 59, 60], 20, true);
+        maleNinja.animations.add('idle', [10, 11, 12, 13, 14, 15, 16, 17, 18, 19], 15, true);
+        maleNinja.animations.add('attack', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 30, true);
+        maleNinja.animations.add('jump', [20, 21, 22, 23, 24, 25, 26, 27, 28, 29], 30, true);
 
         keyState = {
             right: this.input.keyboard.addKey(Phaser.Keyboard.RIGHT),
