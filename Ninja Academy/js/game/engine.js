@@ -16,6 +16,34 @@
     let keyState;
     let platforms;
 
+    let maleJumpSound1 = new Audio('../../content/audio/sound-efx/male-jump-1.ogg');
+    let maleJumpSound2 = new Audio('../../content/audio/sound-efx/male-jump-2.ogg');
+
+    let backgroundSound = new Audio('../../content/audio/background-sound.wav');
+    backgroundSound.volume = 0.4;
+    backgroundSound.loop;
+    backgroundSound.play();
+
+    let swordAttack1 = new Audio('../../content/audio/sound-efx//sword-attack (1).wav');
+    let swordAttack2 = new Audio('../../content/audio/sound-efx//sword-attack (2).wav');
+
+    swordAttack1.volume = 0.7;
+    swordAttack2.volume = 0.7;
+
+    let step1 = new Audio('../../content/audio/sound-efx//step  (1).ogg');
+    let step2 = new Audio('../../content/audio/sound-efx//step  (2).ogg');
+
+    function startRunningSound () 
+    {  
+        let rndNumber = Math.round(Math.random());
+
+            if (rndNumber === 0) {
+                step1.play();
+            } else {
+                step2.play();
+            }
+    }
+
     function preload() {
         game.load.image('background', '../../content/images/forest-background.png');
 
@@ -156,22 +184,32 @@
             }
         }
         else if (keyState.up.isDown) {
-            
+
             maleNinja.animations.play('jump', 10, false);
-            
         }
         else if (keyState.left.isDown) {
             maleNinja.animations.play('left');
             maleNinja.body.velocity.x = -150;
             maleNinja.scale.setTo(-0.7, 0.7);
+            startRunningSound();
         } else if (keyState.attack.isDown) {
 
             maleNinja.animations.play('attack');
+
+            let rndNumber = Math.round(Math.random());
+
+            if (rndNumber === 0) {
+                swordAttack1.play();
+            } else {
+                swordAttack2.play();
+            }
+           
 
         } else if (keyState.right.isDown) {
             maleNinja.animations.play('right');
             maleNinja.body.velocity.x = 150;
             maleNinja.scale.setTo(0.7, 0.7);
+            startRunningSound();
         } else {
             //  stand still / idle
             maleNinja.animations.play('idle');
@@ -180,6 +218,14 @@
 
         //  if touching ground, you can jump.
         if (keyState.up.isDown && maleNinja.body.touching.down) {
+            let rndNumber = Math.round(Math.random());
+
+            if (rndNumber === 0) {
+                maleJumpSound1.play();
+            } else {
+                maleJumpSound2.play();
+            }
+
             maleNinja.body.velocity.y = -420;
         }
     }
