@@ -1,10 +1,11 @@
 /// <reference path="..\..\typings\index.d.ts" />
 
 /// <reference path="player-male.js" />
+/// <reference path="player-female.js"/>
 
-/*globals Phaser, maleNinja*/
-
-(function () {
+/*globals Phaser, maleNinja, femaleNinja */
+let femaleNinja;
+(function() {
     'use strict';
 
     let game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
@@ -14,10 +15,11 @@
     });
 
     let keyState;
+    let keyStateFemale;
     let platforms;
 
     //TODO:
-    //must use game.load.audio instead of new Audio 
+    //must use game.load.audio instead of new Audio
 
     let maleJumpSound1 = new Audio('../../content/audio/sound-efx/male-jump-1.ogg');
     let maleJumpSound2 = new Audio('../../content/audio/sound-efx/male-jump-2.ogg');
@@ -36,15 +38,14 @@
     let step1 = new Audio('../../content/audio/sound-efx//step  (1).ogg');
     let step2 = new Audio('../../content/audio/sound-efx//step  (2).ogg');
 
-    function startRunningSound () 
-    {  
+    function startRunningSound() {
         let rndNumber = Math.round(Math.random());
 
-            if (rndNumber === 0) {
-                step1.play();
-            } else {
-                step2.play();
-            }
+        if (rndNumber === 0) {
+            step1.play();
+        } else {
+            step2.play();
+        }
     }
 
     function preload() {
@@ -65,6 +66,10 @@
         game.load.image('skeleton', '../../content/images/objects/graveyard-map-objects/Skeleton.png');
         game.load.image('arrow-sign', '../../content/images/objects/graveyard-map-objects/ArrowSign.png');
         game.load.image('tomb-stone', '../../content/images/objects/graveyard-map-objects/TombStone (2).png');
+
+        game.load.atlasJSONHash('female',
+            'content/female-ninja/ninja.png',
+            'content/female-ninja/ninja.json');
 
         game.load.atlasJSONHash(
             'ninjarun',
@@ -140,17 +145,28 @@
         tree.scale.setTo(0.7, 0.7);
         tree.body.immovable = true;
         // The player and its settings
-        maleNinja = game.add.sprite(0, 200, 'ninjarun');
+        femaleNinja = game.add.sprite(0, 0, 'ninjarun');
+        femaleNinja.scale.setTo(0.7, 0.7);
+
+        maleNinja = game.add.sprite(0, 400, 'female');
         maleNinja.scale.setTo(0.7, 0.7);
 
         //  We need to enable physics on the player
         game.physics.arcade.enable(maleNinja);
+        game.physics.arcade.enable(femaleNinja);
 
         //  Player physics properties. Give the little guy a slight bounce.
         maleNinja.body.bounce.y = 0.15;
         maleNinja.body.gravity.y = 500;
         maleNinja.body.collideWorldBounds = true;
         maleNinja.anchor.setTo(0.5);
+
+        femaleNinja.body.bounce.y = 0.15;
+        femaleNinja.body.gravity.y = 500;
+        femaleNinja.body.collideWorldBounds = true;
+        femaleNinja.anchor.setTo(0.5);
+
+
 
         //  Our two animations, walking left and right.
         maleNinja.animations.add('left', [51, 52, 53, 54, 55, 56, 57, 58, 59, 60], 20, true);
@@ -159,11 +175,25 @@
         maleNinja.animations.add('attack', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 30, true);
         maleNinja.animations.add('jump', [20, 21, 22, 23, 24, 25]);
 
+
+        femaleNinja.animations.add('left', [51, 52, 53, 54, 55, 56, 57, 58, 59, 60], 20, true);
+        femaleNinja.animations.add('right', [51, 52, 53, 54, 55, 56, 57, 58, 59, 60], 20, true);
+        femaleNinja.animations.add('idle', [10, 11, 12, 13, 14, 15, 16, 17, 18, 19], 15, true);
+        femaleNinja.animations.add('attack', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 30, true);
+        femaleNinja.animations.add('jump', [20, 21, 22, 23, 24, 25]);
+
         keyState = {
             right: this.input.keyboard.addKey(Phaser.Keyboard.RIGHT),
             left: this.input.keyboard.addKey(Phaser.Keyboard.LEFT),
             up: this.input.keyboard.addKey(Phaser.Keyboard.UP),
             attack: this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_1)
+        };
+
+        keyStateFemale = {
+            right: this.input.keyboard.addKey(Phaser.Keyboard.D),
+            left: this.input.keyboard.addKey(Phaser.Keyboard.A),
+            up: this.input.keyboard.addKey(Phaser.Keyboard.W),
+            attack: this.input.keyboard.addKey(Phaser.Keyboard.H)
         };
 
         let skull = game.add.sprite(0, 450, 'skull');
@@ -175,7 +205,9 @@
 
     function update() {
         game.physics.arcade.collide(maleNinja, platforms);
+        game.physics.arcade.collide(femaleNinja, platforms);
         maleNinja.body.velocity.x = 0;
+        femaleNinja.body.velocity.x = 0;
 
         if (!maleNinja.body.touching.down) {
             if (keyState.left.isDown) {
@@ -185,12 +217,10 @@
                 maleNinja.body.velocity.x = 150;
                 maleNinja.scale.setTo(0.7, 0.7);
             }
-        }
-        else if (keyState.up.isDown) {
+        } else if (keyState.up.isDown) {
 
             maleNinja.animations.play('jump', 10, false);
-        }
-        else if (keyState.left.isDown) {
+        } else if (keyState.left.isDown) {
             maleNinja.animations.play('left');
             maleNinja.body.velocity.x = -150;
             maleNinja.scale.setTo(-0.7, 0.7);
@@ -206,7 +236,7 @@
             } else {
                 swordAttack2.play();
             }
-           
+
 
         } else if (keyState.right.isDown) {
             maleNinja.animations.play('right');
@@ -231,5 +261,61 @@
 
             maleNinja.body.velocity.y = -420;
         }
+        //female ninja logic
+        ///////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
+
+        if (!femaleNinja.body.touching.down) {
+            if (keyStateFemale.left.isDown) {
+                femaleNinja.body.velocity.x = -150;
+                femaleNinja.scale.setTo(-0.7, 0.7);
+            } else if (keyStateFemale.right.isDown) {
+                femaleNinja.body.velocity.x = 150;
+                femaleNinja.scale.setTo(0.7, 0.7);
+            }
+        } else if (keyStateFemale.up.isDown) {
+
+            femaleNinja.animations.play('jump', 10, false);
+        } else if (keyStateFemale.left.isDown) {
+            femaleNinja.animations.play('left');
+            femaleNinja.body.velocity.x = -150;
+            femaleNinja.scale.setTo(-0.7, 0.7);
+            startRunningSound();
+        } else if (keyStateFemale.attack.isDown) {
+
+            femaleNinja.animations.play('attack');
+
+            let rndNumber = Math.round(Math.random());
+            /*
+                        if (rndNumber === 0) {
+                            swordAttack1.play();
+                        } else {
+                            swordAttack2.play();
+                        }*/
+
+
+        } else if (keyStateFemale.right.isDown) {
+            femaleNinja.animations.play('right');
+            femaleNinja.body.velocity.x = 150;
+            femaleNinja.scale.setTo(0.7, 0.7);
+            startRunningSound();
+        } else {
+            //  stand still / idle
+            femaleNinja.animations.play('idle');
+            // animation to be added
+        }
+
+        //  if touching ground, you can jump.
+        if (keyStateFemale.up.isDown && femaleNinja.body.touching.down) {
+            let rndNumber = Math.round(Math.random());
+
+            /*  if (rndNumber === 0) {
+                maleJumpSound1.play();
+            } else {
+                maleJumpSound2.play();
+            }
+*/
+            femaleNinja.body.velocity.y = -420;
+        }
     }
-} ());
+}());;
