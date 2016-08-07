@@ -16,6 +16,9 @@
     let keyState;
     let platforms;
 
+    //TODO:
+    //must use game.load.audio instead of new Audio 
+
     let maleJumpSound1 = new Audio('../../content/audio/sound-efx/male-jump-1.ogg');
     let maleJumpSound2 = new Audio('../../content/audio/sound-efx/male-jump-2.ogg');
 
