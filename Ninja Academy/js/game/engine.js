@@ -41,8 +41,6 @@
             'content/male-ninja/ninja.json');
     }
 
-
-
     function create() {
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -128,7 +126,7 @@
         maleNinja.animations.add('right', [51, 52, 53, 54, 55, 56, 57, 58, 59, 60], 20, true);
         maleNinja.animations.add('idle', [10, 11, 12, 13, 14, 15, 16, 17, 18, 19], 15, true);
         maleNinja.animations.add('attack', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 30, true);
-        maleNinja.animations.add('jump', [20, 21, 22, 23, 24, 25, 26, 27, 28, 29], 30, true);
+        maleNinja.animations.add('jump', [20, 21, 22, 23, 24, 25]);
 
         keyState = {
             right: this.input.keyboard.addKey(Phaser.Keyboard.RIGHT),
@@ -137,24 +135,32 @@
             attack: this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_1)
         };
 
-
-
         let skull = game.add.sprite(0, 450, 'skull');
         skull.scale.setTo(0.5, 0.5);
 
         let bones = game.add.sprite(640, 450, 'bones');
         bones.scale.setTo(0.5, 0.5);
-
-
     }
-
 
     function update() {
         game.physics.arcade.collide(maleNinja, platforms);
         maleNinja.body.velocity.x = 0;
 
-
-        if (keyState.left.isDown) {
+        if (!maleNinja.body.touching.down) {
+            if (keyState.left.isDown) {
+                maleNinja.body.velocity.x = -150;
+                maleNinja.scale.setTo(-0.7, 0.7);
+            } else if (keyState.right.isDown) {
+                maleNinja.body.velocity.x = 150;
+                maleNinja.scale.setTo(0.7, 0.7);
+            }
+        }
+        else if (keyState.up.isDown) {
+            
+            maleNinja.animations.play('jump', 10, false);
+            
+        }
+        else if (keyState.left.isDown) {
             maleNinja.animations.play('left');
             maleNinja.body.velocity.x = -150;
             maleNinja.scale.setTo(-0.7, 0.7);
@@ -168,9 +174,7 @@
             maleNinja.scale.setTo(0.7, 0.7);
         } else {
             //  stand still / idle
-
             maleNinja.animations.play('idle');
-
             // animation to be added
         }
 
