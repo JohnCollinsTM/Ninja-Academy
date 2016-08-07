@@ -4,7 +4,7 @@
 
 /*globals Phaser, maleNinja*/
 
-(function() {
+(function () {
     'use strict';
 
     let game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
@@ -111,7 +111,8 @@
         tree.scale.setTo(0.7, 0.7);
         tree.body.immovable = true;
         // The player and its settings
-        maleNinja = game.add.sprite(0, 0, 'ninjarun');
+        maleNinja = game.add.sprite(0, 200, 'ninjarun');
+        maleNinja.scale.setTo(0.7, 0.7);
 
         //  We need to enable physics on the player
         game.physics.arcade.enable(maleNinja);
@@ -120,6 +121,7 @@
         maleNinja.body.bounce.y = 0.15;
         maleNinja.body.gravity.y = 500;
         maleNinja.body.collideWorldBounds = true;
+        maleNinja.anchor.setTo(0.5);
 
         //  Our two animations, walking left and right.
         maleNinja.animations.add('left', [51, 52, 53, 54, 55, 56, 57, 58, 59, 60], 10, true);
@@ -133,7 +135,7 @@
             left: this.input.keyboard.addKey(Phaser.Keyboard.LEFT),
             up: this.input.keyboard.addKey(Phaser.Keyboard.UP),
             attack: this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_1)
-        }
+        };
 
 
 
@@ -146,6 +148,7 @@
 
     }
 
+
     function update() {
         game.physics.arcade.collide(maleNinja, platforms);
         maleNinja.body.velocity.x = 0;
@@ -153,18 +156,16 @@
 
         if (keyState.left.isDown) {
             maleNinja.animations.play('left');
-            maleNinja.scale.x = -1;
             maleNinja.body.velocity.x = -150;
+            maleNinja.scale.setTo(-0.7, 0.7);
         } else if (keyState.attack.isDown) {
 
             maleNinja.animations.play('attack');
 
         } else if (keyState.right.isDown) {
-
-            maleNinja.body.velocity.x = 150;
-
             maleNinja.animations.play('right');
-            maleNinja.scale.x = 1;
+            maleNinja.body.velocity.x = 150;
+            maleNinja.scale.setTo(0.7, 0.7);
         } else {
             //  stand still / idle
 
@@ -175,7 +176,7 @@
 
         //  if touching ground, you can jump.
         if (keyState.up.isDown && maleNinja.body.touching.down) {
-            maleNinja.body.velocity.y = -350;
+            maleNinja.body.velocity.y = -420;
         }
     }
-}());
+} ());
