@@ -145,10 +145,10 @@ let femaleNinja;
         tree.scale.setTo(0.7, 0.7);
         tree.body.immovable = true;
         // The player and its settings
-        femaleNinja = game.add.sprite(0, 0, 'ninjarun');
+        femaleNinja = game.add.sprite(0, 0, 'female');
         femaleNinja.scale.setTo(0.7, 0.7);
 
-        maleNinja = game.add.sprite(0, 400, 'female');
+        maleNinja = game.add.sprite(0, 400, 'ninjarun');
         maleNinja.scale.setTo(0.7, 0.7);
 
         //  We need to enable physics on the player
@@ -209,113 +209,66 @@ let femaleNinja;
         maleNinja.body.velocity.x = 0;
         femaleNinja.body.velocity.x = 0;
 
-        if (!maleNinja.body.touching.down) {
-            if (keyState.left.isDown) {
-                maleNinja.body.velocity.x = -150;
-                maleNinja.scale.setTo(-0.7, 0.7);
-            } else if (keyState.right.isDown) {
-                maleNinja.body.velocity.x = 150;
-                maleNinja.scale.setTo(0.7, 0.7);
-            }
-        } else if (keyState.up.isDown) {
+        function spriteControlsEngine(sprite, controls) {
 
-            maleNinja.animations.play('jump', 10, false);
-        } else if (keyState.left.isDown) {
-            maleNinja.animations.play('left');
-            maleNinja.body.velocity.x = -150;
-            maleNinja.scale.setTo(-0.7, 0.7);
-            startRunningSound();
-        } else if (keyState.attack.isDown) {
+            if (!sprite.body.touching.down) {
+                if (controls.left.isDown) {
+                    sprite.body.velocity.x = -150;
+                    sprite.scale.setTo(-0.7, 0.7);
+                } else if (controls.right.isDown) {
+                    sprite.body.velocity.x = 150;
+                    sprite.scale.setTo(0.7, 0.7);
+                }
+            } else if (controls.up.isDown) {
 
-            maleNinja.animations.play('attack');
+                sprite.animations.play('jump', 10, false);
+            } else if (controls.left.isDown) {
+                sprite.animations.play('left');
+                sprite.body.velocity.x = -150;
+                sprite.scale.setTo(-0.7, 0.7);
+                startRunningSound();
+            } else if (controls.attack.isDown) {
 
-            let rndNumber = Math.round(Math.random());
+                sprite.animations.play('attack');
 
-            if (rndNumber === 0) {
-                swordAttack1.play();
+                let rndNumber = Math.round(Math.random());
+
+                if (rndNumber === 0) {
+                    swordAttack1.play();
+                } else {
+                    swordAttack2.play();
+                }
+
+
+            } else if (controls.right.isDown) {
+                sprite.animations.play('right');
+                sprite.body.velocity.x = 150;
+                sprite.scale.setTo(0.7, 0.7);
+                startRunningSound();
             } else {
-                swordAttack2.play();
+                //  stand still / idle
+                sprite.animations.play('idle');
+                // animation to be added
             }
 
+            //  if touching ground, you can jump.
+            if (controls.up.isDown && sprite.body.touching.down) {
+                let rndNumber = Math.round(Math.random());
 
-        } else if (keyState.right.isDown) {
-            maleNinja.animations.play('right');
-            maleNinja.body.velocity.x = 150;
-            maleNinja.scale.setTo(0.7, 0.7);
-            startRunningSound();
-        } else {
-            //  stand still / idle
-            maleNinja.animations.play('idle');
-            // animation to be added
-        }
+                if (rndNumber === 0) {
+                    maleJumpSound1.play();
+                } else {
+                    maleJumpSound2.play();
+                }
 
-        //  if touching ground, you can jump.
-        if (keyState.up.isDown && maleNinja.body.touching.down) {
-            let rndNumber = Math.round(Math.random());
-
-            if (rndNumber === 0) {
-                maleJumpSound1.play();
-            } else {
-                maleJumpSound2.play();
+                sprite.body.velocity.y = -420;
             }
-
-            maleNinja.body.velocity.y = -420;
-        }
-        //female ninja logic
-        ///////////////////////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////////////
-
-        if (!femaleNinja.body.touching.down) {
-            if (keyStateFemale.left.isDown) {
-                femaleNinja.body.velocity.x = -150;
-                femaleNinja.scale.setTo(-0.7, 0.7);
-            } else if (keyStateFemale.right.isDown) {
-                femaleNinja.body.velocity.x = 150;
-                femaleNinja.scale.setTo(0.7, 0.7);
-            }
-        } else if (keyStateFemale.up.isDown) {
-
-            femaleNinja.animations.play('jump', 10, false);
-        } else if (keyStateFemale.left.isDown) {
-            femaleNinja.animations.play('left');
-            femaleNinja.body.velocity.x = -150;
-            femaleNinja.scale.setTo(-0.7, 0.7);
-            startRunningSound();
-        } else if (keyStateFemale.attack.isDown) {
-
-            femaleNinja.animations.play('attack');
-
-            let rndNumber = Math.round(Math.random());
-            /*
-                        if (rndNumber === 0) {
-                            swordAttack1.play();
-                        } else {
-                            swordAttack2.play();
-                        }*/
-
-
-        } else if (keyStateFemale.right.isDown) {
-            femaleNinja.animations.play('right');
-            femaleNinja.body.velocity.x = 150;
-            femaleNinja.scale.setTo(0.7, 0.7);
-            startRunningSound();
-        } else {
-            //  stand still / idle
-            femaleNinja.animations.play('idle');
-            // animation to be added
         }
 
-        //  if touching ground, you can jump.
-        if (keyStateFemale.up.isDown && femaleNinja.body.touching.down) {
-            let rndNumber = Math.round(Math.random());
+        spriteControlsEngine(maleNinja, keyState);
+        spriteControlsEngine(femaleNinja, keyStateFemale)
 
-            /*  if (rndNumber === 0) {
-                maleJumpSound1.play();
-            } else {
-                maleJumpSound2.play();
-            }
-*/
-            femaleNinja.body.velocity.y = -420;
-        }
+
+
     }
 }());;
