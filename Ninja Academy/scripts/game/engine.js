@@ -1,14 +1,11 @@
 /// <reference path="..\..\typings\index.d.ts" />
 
-/// <reference path="player-male.js" />
-/// <reference path="player-female.js"/>
-
-/*globals Phaser, maleNinja, femaleNinja, define */
+/* globals Phaser, define */
 
 (function () {
     'use strict';
 
-    define(['playerMale', 'playerFemale', 'content'], function (playerMale, playerFemale, content) {
+    define(['playerMale', 'playerFemale', 'audio', 'content'], function (playerMale, playerFemale, audio, content) {
         let game = new Phaser.Game(800, 600, Phaser.AUTO);
 
         let maleNinja = playerMale.ninja;
@@ -20,17 +17,6 @@
         let platforms;
 
         let imgs = content.imgs;
-        let audio = content.audio;
-
-        // function startRunningSound() {
-        //     let rndNumber = Math.round(Math.random());
-
-        //     if (rndNumber === 0) {
-        //         step1.play();
-        //     } else {
-        //         step2.play();
-        //     }
-        // }
 
         function generateObjects() {
             // Ground platform
@@ -141,7 +127,6 @@
                 for (let i = 0, len = imgs.length; i < len; i += 2) {
                     let name = i;
                     let url = i + 1;
-
                     game.load.image(imgs[name], imgs[url]);
                 }
 
@@ -153,15 +138,6 @@
                     'ninjarun',
                     'content/male-ninja/ninja.png',
                     'content/male-ninja/ninja.json');
-                //------------------------------------
-
-                // Loading Audio
-                for (let i = 0, len = audio.length; i < len; i += 2) {
-                    let name = i;
-                    let url = i + 1;
-
-                    game.load.audio(audio[name], audio[url]);
-                }
             },
 
             create: function () {
@@ -294,45 +270,31 @@
                         sprite.animations.play('jump', 10, false);
 
                     } else if (controls.left.isDown) {
+
                         sprite.animations.play('left');
                         sprite.body.velocity.x = -150;
                         sprite.scale.setTo(-0.7, 0.7);
-                        // startRunningSound();
+                        audio.playRunningSound();
 
                     } else if (controls.attack.isDown) {
 
                         sprite.animations.play('attack');
-
-                        let rndNumber = Math.round(Math.random());
-
-                        if (rndNumber === 0) {
-                            // swordAttack1.play();
-                        } else {
-                            // swordAttack2.play();
-                        }
-
+                        audio.playFightingSound();
 
                     } else if (controls.right.isDown) {
+
                         sprite.animations.play('right');
                         sprite.body.velocity.x = 150;
                         sprite.scale.setTo(0.7, 0.7);
-                        // startRunningSound();
+                        audio.playRunningSound();
+
                     } else {
-                        //  stand still / idle
                         sprite.animations.play('idle');
-                        // animation to be added
                     }
 
-                    //  if touching ground, you can jump.
+                    //  If the character is on the ground he is able to jump
                     if (controls.up.isDown && sprite.body.touching.down) {
-                        let rndNumber = Math.round(Math.random());
-
-                        if (rndNumber === 0) {
-                            // maleJumpSound1.play();
-                        } else {
-                            // maleJumpSound2.play();
-                        }
-
+                        audio.playMaleJumpingSound();
                         sprite.body.velocity.y = -420;
                     }
                 }
@@ -347,8 +309,7 @@
                 game.state.add('gameState', gameState);
                 game.state.start('gameState');
 
-                //TODO:
-                //must use game.load.audio instead of new Audio
+                audio.playBackgroundMusic();
             }
         };
     });

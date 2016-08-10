@@ -1,5 +1,3 @@
-/// <reference path="..\..\typings\index.d.ts" />
-
 /* globals define */
 
 (function () {
@@ -24,18 +22,18 @@
         ];
 
         let audio = [
-            'backgroundSound', '../../content/audio/background-sound.wav',
-            'maleJump-1', '../../content/audio/sound-efx/male-jump-1.ogg',
-            'maleJump-2', '../../content/audio/sound-efx/male-jump-2.ogg',
-            'swordAttack-1', '../../content/audio/sound-efx//sword-attack (1).wav',
-            'swordAttack-2', '../../content/audio/sound-efx//sword-attack (2).wav',
-            'step-1', '../../content/audio/sound-efx//step  (1).ogg',
-            'step-2', '../../content/audio/sound-efx//step  (2).ogg'
+            'background-sound', '../../content/audio/background-sound.wav',
+            'maleJump-1', '../../content/audio/sound-efx/male-jump(1).ogg',
+            'maleJump-2', '../../content/audio/sound-efx/male-jump(2).ogg',
+            'swordAttack-1', '../../content/audio/sound-efx/sword-attack(1).wav',
+            'swordAttack-2', '../../content/audio/sound-efx/sword-attack(2).wav',
+            'step-1', '../../content/audio/sound-efx/step(1).ogg',
+            'step-2', '../../content/audio/sound-efx/step(2).ogg'
         ];
 
         return {
             imgs: images,
-            audio: audio
+            audio: audio,
         };
     });
 }());
