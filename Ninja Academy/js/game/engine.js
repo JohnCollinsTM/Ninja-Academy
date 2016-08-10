@@ -18,6 +18,10 @@ let femaleNinja;
     let keyStateFemale;
     let platforms;
 
+    let bullets;
+    let bulletTime = 0;
+    let fireButton;
+
     //TODO:
     //must use game.load.audio instead of new Audio
 
@@ -48,6 +52,10 @@ let femaleNinja;
         }
     }
 
+
+
+
+
     function preload() {
         game.load.image('background', '../../content/images/forest-background.png');
 
@@ -68,6 +76,10 @@ let femaleNinja;
         game.load.image('tomb-stone', '../../content/images/objects/graveyard-map-objects/TombStone (2).png');
         game.load.image('female-Head', '../../content/female-ninja/female-head.png');
         game.load.image('male-Head', '../../content/male-ninja/male-head.png');
+
+        game.load.image('bullet', 'assets/bullet1.png');
+
+
 
         game.load.atlasJSONHash('female',
             'content/female-ninja/ninja.png',
@@ -212,6 +224,18 @@ let femaleNinja;
         femaleNinja.body.collideWorldBounds = true;
         femaleNinja.anchor.setTo(0.5);
 
+        bullets = game.add.group();
+        bullets.enableBody = true;
+        bullets.physicsBodyType = Phaser.Physics.Arcade;
+        bullets.createMultiple(30, 'bullet');
+        bullets.setAll('anchor.x', 0.5);
+        bullets.setAll('anchor.y', 1);
+        bullets.setAll('scale.x', 0.5);
+        bullets.setAll('scale.y', 1);
+        bullets.setAll('outOfBoundsKill', true);
+        bullets.setAll('checkWorldBounds', true);
+
+        game.physics.arcade.enable(bullets);
 
 
         //  Our two animations, walking left and right.
@@ -232,14 +256,17 @@ let femaleNinja;
             right: this.input.keyboard.addKey(Phaser.Keyboard.RIGHT),
             left: this.input.keyboard.addKey(Phaser.Keyboard.LEFT),
             up: this.input.keyboard.addKey(Phaser.Keyboard.UP),
-            attack: this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_1)
+            attack: this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_1),
+            fire: this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_2)
         };
 
         keyStateFemale = {
             right: this.input.keyboard.addKey(Phaser.Keyboard.D),
             left: this.input.keyboard.addKey(Phaser.Keyboard.A),
             up: this.input.keyboard.addKey(Phaser.Keyboard.W),
-            attack: this.input.keyboard.addKey(Phaser.Keyboard.H)
+            attack: this.input.keyboard.addKey(Phaser.Keyboard.H),
+
+            fire: this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_4)
         };
 
         let skull = game.add.sprite(0, 450, 'skull');
@@ -360,11 +387,26 @@ let femaleNinja;
 
                 sprite.body.velocity.y = -420;
             }
+            if (controls.fire.isDown) {
+                fireBullet();
+            }
         }
+
+
 
         spriteControlsEngine(maleNinja, keyState);
         spriteControlsEngine(femaleNinja, keyStateFemale)
 
+        function fireBullet() {
+            if (game.time.now > bulletTime) {
+                let bullet = bullets.getFirstExists(false);
+                if (bullet) {
+                    bullet.reset(maleNinja.x, maleNinja.y);
+                    bullet.body.velocity.x = -100;
+                    bulletTime = game.time.now + 200;
+                }
+            }
+        }
 
 
     }
