@@ -5,7 +5,7 @@
 
 /*globals Phaser, maleNinja, femaleNinja */
 let femaleNinja;
-(function() {
+(function () {
     'use strict';
 
     let game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
@@ -67,7 +67,7 @@ let femaleNinja;
         game.load.image('arrow-sign', '../../content/images/objects/graveyard-map-objects/ArrowSign.png');
         game.load.image('tomb-stone', '../../content/images/objects/graveyard-map-objects/TombStone (2).png');
         game.load.image('female-Head', '../../content/female-ninja/female-head.png');
-        game.load.image('male-Head', '../../content/male-ninja/male-head.png');    
+        game.load.image('male-Head', '../../content/male-ninja/male-head.png');
 
         game.load.atlasJSONHash('female',
             'content/female-ninja/ninja.png',
@@ -77,7 +77,11 @@ let femaleNinja;
             'ninjarun',
             'content/male-ninja/ninja.png',
             'content/male-ninja/ninja.json');
+
+
     }
+
+
 
     function create() {
         game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -184,6 +188,8 @@ let femaleNinja;
         femaleHead.scale.setTo(0.7, 0.7);
 
 
+
+
         // The player and its settings
         femaleNinja = game.add.sprite(0, 0, 'female');
         femaleNinja.scale.setTo(0.7, 0.7);
@@ -241,7 +247,58 @@ let femaleNinja;
 
         let bones = game.add.sprite(640, 450, 'bones');
         bones.scale.setTo(0.5, 0.5);
+
+        //timer
+        var me = this;
+
+        me.startTime = new Date();
+        me.totalTime = 120;
+        me.timeElapsed = 0;
+
+        me.createTimer();
+
+        me.gameTimer = game.time.events.loop(100, function () {
+            me.updateTimer();
+        });
+
     }
+
+    function createTimer() {
+
+        var me = this;
+
+        me.timeLabel = me.game.add.text(me.game.world.centerX, 100, "00:00", { font: "100px Arial", fill: "#fff" });
+        me.timeLabel.anchor.setTo(0.5, 0);
+        me.timeLabel.align = 'center';
+
+    }
+
+    function updateTimer(){
+ 
+    var me = this;
+ 
+    var currentTime = new Date();
+    var timeDifference = me.startTime.getTime() - currentTime.getTime();
+ 
+    //Time elapsed in seconds
+    me.timeElapsed = Math.abs(timeDifference / 1000);
+ 
+    //Time remaining in seconds
+    var timeRemaining = me.totalTime - me.timeElapsed; 
+ 
+    //Convert seconds into minutes and seconds
+    var minutes = Math.floor(timeRemaining / 60);
+    var seconds = Math.floor(timeRemaining) - (60 * minutes);
+ 
+    //Display minutes, add a 0 to the start if less than 10
+    var result = (minutes < 10) ? "0" + minutes : minutes; 
+ 
+    //Display seconds, add a 0 to the start if less than 10
+    result += (seconds < 10) ? ":0" + seconds : ":" + seconds; 
+ 
+    me.timeLabel.text = result;
+ 
+}
 
     function update() {
         game.physics.arcade.collide(maleNinja, platforms);
@@ -311,4 +368,4 @@ let femaleNinja;
 
 
     }
-}());;
+} ());;
