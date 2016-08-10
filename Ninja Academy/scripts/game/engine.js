@@ -200,7 +200,7 @@
                 let femaleHead = game.add.sprite(750, 5, 'female-Head');
                 femaleHead.scale.setTo(0.7, 0.7);
 
-                femaleNinja = game.add.sprite(750, 200, 'female');
+                femaleNinja = game.add.sprite(800, 200, 'female');
                 femaleNinja.scale.setTo(0.7, 0.7);
                 game.physics.arcade.enable(femaleNinja);
 
@@ -208,6 +208,7 @@
                 femaleNinja.body.gravity.y = 500;
                 femaleNinja.body.collideWorldBounds = true;
                 femaleNinja.anchor.setTo(0.5);
+                femaleNinja.scale.setTo(-0.7, 0.7);
 
                 femaleNinja.animations.add('left', [51, 52, 53, 54, 55, 56, 57, 58, 59, 60], 20, true);
                 femaleNinja.animations.add('right', [51, 52, 53, 54, 55, 56, 57, 58, 59, 60], 20, true);
@@ -226,7 +227,7 @@
                 let maleHead = game.add.sprite(0, 5, 'male-Head');
                 maleHead.scale.setTo(0.8, 0.8);
 
-                maleNinja = game.add.sprite(0, 400, 'ninjarun');
+                maleNinja = game.add.sprite(0, 200, 'ninjarun');
                 maleNinja.scale.setTo(0.7, 0.7);
                 game.physics.arcade.enable(maleNinja);
 
