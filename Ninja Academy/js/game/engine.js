@@ -66,6 +66,8 @@ let femaleNinja;
         game.load.image('skeleton', '../../content/images/objects/graveyard-map-objects/Skeleton.png');
         game.load.image('arrow-sign', '../../content/images/objects/graveyard-map-objects/ArrowSign.png');
         game.load.image('tomb-stone', '../../content/images/objects/graveyard-map-objects/TombStone (2).png');
+        game.load.image('female-Head', '../../content/female-ninja/female-head.png');
+        game.load.image('male-Head', '../../content/male-ninja/male-head.png');    
 
         game.load.atlasJSONHash('female',
             'content/female-ninja/ninja.png',
@@ -144,6 +146,44 @@ let femaleNinja;
         let tree = platforms.create(300, 310, 'tree');
         tree.scale.setTo(0.7, 0.7);
         tree.body.immovable = true;
+
+        //healthBars
+        var bmd = this.game.add.bitmapData(300, 40);
+        bmd.ctx.beginPath();
+        bmd.ctx.rect(0, 0, 300, 80);
+        bmd.ctx.fillStyle = '#00685e';
+        bmd.ctx.fill();
+
+        var backGroundOfMaleLife = this.game.add.sprite(180, 30, bmd);
+        backGroundOfMaleLife.anchor.set(0.5);
+
+        var backGroundOfFemaleLife = this.game.add.sprite(620, 30, bmd);
+        backGroundOfFemaleLife.anchor.set(0.5);
+
+        bmd = this.game.add.bitmapData(280, 30);
+        bmd.ctx.beginPath();
+        bmd.ctx.rect(0, 0, 300, 80);
+        bmd.ctx.fillStyle = '#00f910';
+        bmd.ctx.fill();
+
+        //this.totalLife = bmd.width;
+
+        this.actualMaleHealth = this.game.add.sprite(180 - backGroundOfMaleLife.width / 2 + 10, 30, bmd);
+        this.actualMaleHealth.anchor.y = 0.5;
+        this.actualMaleHealth.cropEnabled = true;
+        //this.actualMalehealth.crop(SOME_DAMEGE); AFter tha Calling a function
+
+        this.actualFemaleHealth = this.game.add.sprite(620 - backGroundOfFemaleLife.width / 2 + 10, 30, bmd);
+        this.actualFemaleHealth.anchor.y = 0.5;
+        this.actualFemaleHealth.cropEnabled = true;
+
+        let maleHead = game.add.sprite(0, 5, 'male-Head');
+        maleHead.scale.setTo(0.8, 0.8);
+
+        let femaleHead = game.add.sprite(750, 5, 'female-Head');
+        femaleHead.scale.setTo(0.7, 0.7);
+
+
         // The player and its settings
         femaleNinja = game.add.sprite(0, 0, 'female');
         femaleNinja.scale.setTo(0.7, 0.7);
