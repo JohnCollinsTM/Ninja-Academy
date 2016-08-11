@@ -152,11 +152,20 @@
                 generateTiles();
 
                 // Health bars
-                var bmd = this.game.add.bitmapData(300, 40);
+                let bmd = this.game.add.bitmapData(300, 40);
                 bmd.ctx.beginPath();
                 bmd.ctx.rect(0, 0, 300, 80);
                 bmd.ctx.fillStyle = '#00685e';
                 bmd.ctx.fill();
+
+                let backGroundOfMaleLife = this.game.add.sprite(180, 30, bmd);
+                backGroundOfMaleLife.anchor.set(0.5);
+
+                let backGroundOfFemaleLife = this.game.add.sprite(620, 30, bmd);
+                backGroundOfFemaleLife.anchor.set(0.5);
+
+
+                //this.actualMalehealth.crop(SOME_DAMEGE); AFter tha Calling a function
 
                 bmd = this.game.add.bitmapData(280, 30);
                 bmd.ctx.beginPath();
@@ -166,16 +175,22 @@
 
                 //this.totalLife = bmd.width;
 
-                let backGroundOfFemaleLife = this.game.add.sprite(620, 30, bmd);
-                backGroundOfFemaleLife.anchor.set(0.5);
+                this.actualMaleHealth = this.game.add.sprite(180 - backGroundOfMaleLife.width / 2 + 10, 30, bmd);
+                this.actualMaleHealth.anchor.y = 0.5;
+                this.actualMaleHealth.cropEnabled = true;
+                //this.actualMalehealth.crop(SOME_DAMEGE); AFter tha Calling a function
 
                 this.actualFemaleHealth = this.game.add.sprite(620 - backGroundOfFemaleLife.width / 2 + 10, 30, bmd);
                 this.actualFemaleHealth.anchor.y = 0.5;
                 this.actualFemaleHealth.cropEnabled = true;
 
+                let maleHead = game.add.sprite(0, 5, 'male-Head');
+                maleHead.scale.setTo(0.8, 0.8);
+
                 let femaleHead = game.add.sprite(750, 5, 'female-Head');
                 femaleHead.scale.setTo(0.7, 0.7);
 
+                //Female player
                 femaleNinja = game.add.sprite(800, 200, 'female');
                 femaleNinja.scale.setTo(0.7, 0.7);
                 game.physics.arcade.enable(femaleNinja);
@@ -192,17 +207,7 @@
                 femaleNinja.animations.add('attack', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 30, true);
                 femaleNinja.animations.add('jump', [20, 21, 22, 23, 24, 25]);
 
-                let backGroundOfMaleLife = this.game.add.sprite(180, 30, bmd);
-                backGroundOfMaleLife.anchor.set(0.5);
-
-                this.actualMaleHealth = this.game.add.sprite(180 - backGroundOfMaleLife.width / 2 + 10, 30, bmd);
-                this.actualMaleHealth.anchor.y = 0.5;
-                this.actualMaleHealth.cropEnabled = true;
-                //this.actualMalehealth.crop(SOME_DAMEGE); AFter tha Calling a function
-
-                let maleHead = game.add.sprite(0, 5, 'male-Head');
-                maleHead.scale.setTo(0.8, 0.8);
-
+                //Male ninja
                 maleNinja = game.add.sprite(0, 200, 'ninjarun');
                 maleNinja.scale.setTo(0.7, 0.7);
                 game.physics.arcade.enable(maleNinja);
