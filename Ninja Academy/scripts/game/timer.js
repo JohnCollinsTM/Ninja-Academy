@@ -3,50 +3,50 @@
 (function () {
     define(['game'], function (game) {
         function create() {
-            var me = this;
+            var time = this;
 
-            me.startTime = new Date();
-            me.totalTime = 120;
-            me.timeElapsed = 0;
+            time.startTime = new Date();
+            time.totalTime = 120;
+            time.timeElapsed = 0;
 
-            me.createTimer();
+            time.createTimer();
 
-            me.gameTimer = game.time.events.loop(100, function () {
-                me.updateTimer();
+            time.gameTimer = game.time.events.loop(100, function () {
+                time.updateTimer();
             });
         }
 
         function createTimer() {
-            var me = this;
+            var time = this;
 
-            me.timeLabel = me.game.add.text(400, 100, "00:00", { font: "100px Arial", fill: "#fff" });
-            me.timeLabel.anchor.setTo(0.5, 0);
-            me.timeLabel.align = 'center';
+            time.timeLabel = time.game.add.text(400, 100, "00:00", { font: "100px Arial", fill: "#fff" });
+            time.timeLabel.anchor.setTo(0.5, 0);
+            time.timeLabel.align = 'center';
         }
 
         function updateTimer() {
-            var me = this;
+            let time = this;
 
-            var currentTime = new Date();
-            var timeDifference = me.startTime.getTime() - currentTime.getTime();
+            let currentTime = new Date();
+            let timeDifference = time.startTime.getTime() - currentTime.getTime();
 
             //Time elapsed in seconds
-            me.timeElapsed = Math.abs(timeDifference / 1000);
+            time.timeElapsed = Math.abs(timeDifference / 1000);
 
             //Time remaining in seconds
-            var timeRemaining = me.totalTime - me.timeElapsed;
+            let timeRemaining = time.totalTime - time.timeElapsed;
 
             //Convert seconds into minutes and seconds
-            var minutes = Math.floor(timeRemaining / 60);
-            var seconds = Math.floor(timeRemaining) - (60 * minutes);
+            let minutes = Math.floor(timeRemaining / 60);
+            let seconds = Math.floor(timeRemaining) - (60 * minutes);
 
             //Display minutes, add a 0 to the start if less than 10
-            var result = (minutes < 10) ? "0" + minutes : minutes;
+            let result = (minutes < 10) ? "0" + minutes : minutes;
 
             //Display seconds, add a 0 to the start if less than 10
             result += (seconds < 10) ? ":0" + seconds : ":" + seconds;
 
-            me.timeLabel.text = result;
+            time.timeLabel.text = result;
         }
     });
 } ());
