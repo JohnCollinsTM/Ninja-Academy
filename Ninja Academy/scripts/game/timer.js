@@ -1,27 +1,23 @@
 /* globals define */
 
 (function () {
-    define(['game'], function (game) {
-        function create() {
-            var time = this;
+    define(['engine'], function (engine) {
+        let game = engine.game;
+    
+        let time = this;
 
+        function create() {
             time.startTime = new Date();
             time.totalTime = 120;
             time.timeElapsed = 0;
 
-            time.createTimer();
+            time.timeLabel = game.time.add.text(400, 100, "00:00", { font: "100px Arial", fill: "#fff" });
+            time.timeLabel.anchor.setTo(0.5, 0);
+            time.timeLabel.align = 'center';
 
             time.gameTimer = game.time.events.loop(100, function () {
                 time.updateTimer();
             });
-        }
-
-        function createTimer() {
-            var time = this;
-
-            time.timeLabel = time.game.add.text(400, 100, "00:00", { font: "100px Arial", fill: "#fff" });
-            time.timeLabel.anchor.setTo(0.5, 0);
-            time.timeLabel.align = 'center';
         }
 
         function updateTimer() {
@@ -48,5 +44,9 @@
 
             time.timeLabel.text = result;
         }
+
+        // return {
+        //     create: create()
+        // };
     });
 } ());

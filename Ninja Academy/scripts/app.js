@@ -5,15 +5,19 @@
         paths: {
             'jquery': '../bower_components/jquery/jquery.min',
 
-            'audio': 'game/audio',
             'content': 'game/content',
             'engine': 'game/engine',
+
+            'audio': 'game/audio',
+            'timer': 'game/timer',
             'playerFemale': 'game/player-female',
-            'playerMale': 'game/player-male',
+            'playerMale': 'game/player-male'
         }
     });
 
-    require(['jquery', 'engine'], function ($, engine) {
+    require(['jquery', 'engine', 'timer'], function ($, engine, timer) {
         engine.start();
+
+        // timer.create();
     });
 } ());

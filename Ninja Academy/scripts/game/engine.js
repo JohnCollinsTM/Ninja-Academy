@@ -21,8 +21,6 @@
         let bullets;
         let bulletTime = 0;
 
-
-
         function generateObjects() {
             // Ground platform
             for (var i = 0; i < 10; i += 1) {
@@ -92,31 +90,6 @@
             bones.scale.setTo(0.5, 0.5);
         }
 
-        function updateTimer() {
-            var me = this;
-
-            var currentTime = new Date();
-            var timeDifference = me.startTime.getTime() - currentTime.getTime();
-
-            //Time elapsed in seconds
-            me.timeElapsed = Math.abs(timeDifference / 1000);
-
-            //Time remaining in seconds
-            var timeRemaining = me.totalTime - me.timeElapsed;
-
-            //Convert seconds into minutes and seconds
-            var minutes = Math.floor(timeRemaining / 60);
-            var seconds = Math.floor(timeRemaining) - (60 * minutes);
-
-            //Display minutes, add a 0 to the start if less than 10
-            var result = (minutes < 10) ? "0" + minutes : minutes;
-
-            //Display seconds, add a 0 to the start if less than 10
-            result += (seconds < 10) ? ":0" + seconds : ":" + seconds;
-
-            me.timeLabel.text = result;
-        }
-
         var gameState = {
             preload: function() {
 
@@ -140,6 +113,44 @@
                     'kunai',
                     'content/kunai.png',
                     'content/kunai.json');
+            },
+
+            createTimer: function () {
+                let time = this;
+
+                time.timeLabel = time.game.add.text(
+                    time.game.world.centerX, 
+                    10, 
+                    '00:00', 
+                    { font: "35px Orbitron", fill: "#fff" });
+
+                time.timeLabel.anchor.setTo(0.5, 0);
+                time.timeLabel.align = 'center';
+            },
+
+            updateTimer: function () {
+                let time = this;
+
+                let currentTime = new Date();
+                let timeDifference = time.startTime.getTime() - currentTime.getTime();
+
+                //Time elapsed in seconds
+                time.timeElapsed = Math.abs(timeDifference / 1000);
+
+                //Time remaining in seconds
+                let timeRemaining = time.totalTime - time.timeElapsed;
+
+                //Convert seconds into minutes and seconds
+                let minutes = Math.floor(timeRemaining / 60);
+                let seconds = Math.floor(timeRemaining) - (60 * minutes);
+
+                //Display minutes, add a 0 to the start if less than 10
+                let result = (minutes < 10) ? "0" + minutes : minutes;
+
+                //Display seconds, add a 0 to the start if less than 10
+                result += (seconds < 10) ? ":0" + seconds : ":" + seconds;
+
+                time.timeLabel.text = result;
             },
 
             create: function() {
@@ -193,24 +204,17 @@
                 femaleHead.scale.setTo(0.7, 0.7);
 
                 // Timer
-                var time = this;
+                let time = this;
 
                 time.startTime = new Date();
-                time.totalTime = 120;
+                time.totalTime = 301;
                 time.timeElapsed = 0;
 
+                time.createTimer();
 
-                time.timeLabel = time.game.add.text(400, 6, "00:00", {
-                    font: "50px Arial",
-                    fill: "#fff"
+                time.gameTimer = game.time.events.loop(100, function () {
+                    time.updateTimer();
                 });
-                time.timeLabel.anchor.setTo(0.5, 0);
-                time.timeLabel.align = 'center';
-
-                time.gameTimer = game.time.events.loop(100, function() {
-                    //time.this.updateTimer();
-                });
-
 
                 //Female ninja
                 femaleNinja = game.add.sprite(800, 200, 'female');
