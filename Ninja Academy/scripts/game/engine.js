@@ -182,7 +182,24 @@
                 let femaleHead = game.add.sprite(750, 5, 'female-Head');
                 femaleHead.scale.setTo(0.7, 0.7);
 
-                //Female player
+                // Timer
+                var time = this;
+
+                time.startTime = new Date();
+                time.totalTime = 120;
+                time.timeElapsed = 0;
+
+
+                time.timeLabel = time.game.add.text(400, 6, "00:00", { font: "50px Arial", fill: "#FFFF00" });
+                time.timeLabel.anchor.setTo(0.5, 0);
+                time.timeLabel.align = 'center';
+
+                time.gameTimer = game.time.events.loop(100, function () {
+                    time.updateTimer();
+                });
+
+
+                //Female ninja
                 femaleNinja = game.add.sprite(800, 200, 'female');
                 femaleNinja.scale.setTo(0.7, 0.7);
                 game.physics.arcade.enable(femaleNinja);
@@ -229,23 +246,6 @@
                     up: this.input.keyboard.addKey(Phaser.Keyboard.W),
                     attack: this.input.keyboard.addKey(Phaser.Keyboard.H)
                 };
-
-                // Timer
-                var time = this;
-
-                time.startTime = new Date();
-                time.totalTime = 120;
-                time.timeElapsed = 0;
-
-
-                time.timeLabel = time.game.add.text(400, 6, "00:00", { font: "50px Arial", fill: "#FFFF00" });
-                time.timeLabel.anchor.setTo(0.5, 0);
-                time.timeLabel.align = 'center';
-
-                time.gameTimer = game.time.events.loop(100, function () {
-                    time.updateTimer(); 
-                });
-
 
             },
 
