@@ -190,12 +190,12 @@
                 time.timeElapsed = 0;
 
 
-                time.timeLabel = time.game.add.text(400, 6, "00:00", { font: "50px Arial", fill: "#FFFF00" });
+                time.timeLabel = time.game.add.text(400, 6, "00:00", { font: "50px Arial", fill: "#FFF" });
                 time.timeLabel.anchor.setTo(0.5, 0);
                 time.timeLabel.align = 'center';
 
                 time.gameTimer = game.time.events.loop(100, function () {
-                    time.updateTimer();
+                    //time.this.updateTimer();
                 });
 
 
