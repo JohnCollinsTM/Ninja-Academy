@@ -87,14 +87,6 @@
             bones.scale.setTo(0.5, 0.5);
         }
 
-        function createTimer() {
-            var me = this;
-
-            me.timeLabel = me.game.add.text(me.game.world.centerX, 100, "00:00", { font: "100px Arial", fill: "#fff" });
-            me.timeLabel.anchor.setTo(0.5, 0);
-            me.timeLabel.align = 'center';
-        }
-
         function updateTimer() {
             var me = this;
 
@@ -251,7 +243,7 @@
                 time.timeLabel.align = 'center';
 
                 time.gameTimer = game.time.events.loop(100, function () {
-                    time.updateTimer(); //function unpdatTimer in timer js, to be added.
+                    time.updateTimer(); 
                 });
 
 
