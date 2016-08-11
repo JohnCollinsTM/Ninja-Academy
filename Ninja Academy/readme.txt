@@ -1,5 +1,0 @@
-How to run
-1. shift + right click, open command window here
-2. execute : npm install http-server -g
-3. execute : http-server
-4. open in browser localhost:8080
