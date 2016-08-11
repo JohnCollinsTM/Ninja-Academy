@@ -5,10 +5,10 @@ html, body
 	overflow: hidden;
 
 	background: url('../content/images/menu-background.jpg') no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
 }
 
 .svg-wrapper{
@@ -27,7 +27,7 @@ html, body
 
 .shape {
     stroke-dasharray: 140 540;
-	stroke-dashoffset: -474;
+	stroke-dashoffset: -470;
 	stroke-width: 8px;
 	fill: transparent;
 	stroke: #98FB98;
@@ -38,11 +38,11 @@ html, body
 .play-btn, .play-btn:visited {
     text-decoration: none;
     font-family: 'Montserrat', sans-serif;
-	font-size: 22px;
+	font-size: 26px;
 	line-height: 32px;
 	letter-spacing: 8px;
 	color: #fff;
-    font-weight: 600;
+    font-weight: 400;
 	top: -48px;
 	position: relative;
 }
