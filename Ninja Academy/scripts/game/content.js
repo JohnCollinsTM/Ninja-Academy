@@ -1,7 +1,7 @@
 /* globals define */
 
-(function () {
-    define(function () {
+(function() {
+    define(function() {
         let images = [
             'background', '../../content/images/forest-background.png',
             'ground', '../../content/images/tiles/graveyard-map-tiles/Tile (2).png',
@@ -18,7 +18,7 @@
             'arrow-sign', '../../content/images/objects/graveyard-map-objects/ArrowSign.png',
             'tomb-stone', '../../content/images/objects/graveyard-map-objects/TombStone (2).png',
             'female-Head', '../../content/female-ninja/female-head.png',
-            'male-Head', '../../content/male-ninja/male-head.png'
+            'male-Head', '../../content/male-ninja/male-head.png',
         ];
 
         let audio = [

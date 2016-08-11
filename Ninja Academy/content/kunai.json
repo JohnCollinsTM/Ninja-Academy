@@ -1,0 +1,20 @@
+{"frames": {
+
+"Kunai.png":
+{
+	"frame": {"x":1,"y":1,"w":40,"h":8},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":40,"h":8},
+	"sourceSize": {"w":40,"h":8}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "kunai.png",
+	"format": "RGBA8888",
+	"size": {"w":42,"h":10},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:4fd847013acd5f517856abcd10cc1283:2fb8ee52064461f2567ef9181b332738:c72dc4b70e68dcc53e60fa86ae6c10fd$"
+}
+}

@@ -2,10 +2,10 @@
 
 /* globals Phaser, define */
 
-(function () {
+(function() {
     'use strict';
 
-    define(['playerMale', 'playerFemale', 'audio', 'content'], function (playerMale, playerFemale, audio, content) {
+    define(['playerMale', 'playerFemale', 'audio', 'content'], function(playerMale, playerFemale, audio, content) {
         let game = new Phaser.Game(800, 600, Phaser.AUTO);
 
         let maleNinja = playerMale.ninja;
@@ -17,6 +17,11 @@
         let platforms;
 
         let imgs = content.imgs;
+
+        let bullets;
+        let bulletTime = 0;
+
+
 
         function generateObjects() {
             // Ground platform
@@ -30,7 +35,7 @@
                 ground.body.immovable = true;
             }
 
-            // Physical objects 
+            // Physical objects
             let ledge = platforms.create(345, 150, 'ledge');
             ledge.scale.setTo(1, 0.5);
             ledge.body.immovable = true;
@@ -61,7 +66,7 @@
         }
 
         function generateTiles() {
-            // Non-physicical objects 
+            // Non-physicical objects
             let bushOne = game.add.sprite(130, 410, 'bush-one');
             bushOne.scale.setTo(0.7, 0.7);
 
@@ -113,7 +118,7 @@
         }
 
         var gameState = {
-            preload: function () {
+            preload: function() {
 
                 // Loading Images
                 for (let i = 0, len = imgs.length; i < len; i += 2) {
@@ -130,9 +135,14 @@
                     'ninjarun',
                     'content/male-ninja/ninja.png',
                     'content/male-ninja/ninja.json');
+
+                game.load.atlasJSONHash(
+                    'kunai',
+                    'content/kunai.png',
+                    'content/kunai.json');
             },
 
-            create: function () {
+            create: function() {
                 game.physics.startSystem(Phaser.Physics.ARCADE);
 
                 game.add.sprite(0, 0, 'background');
@@ -190,11 +200,14 @@
                 time.timeElapsed = 0;
 
 
-                time.timeLabel = time.game.add.text(400, 6, "00:00", { font: "50px Arial", fill: "#fff" });
+                time.timeLabel = time.game.add.text(400, 6, "00:00", {
+                    font: "50px Arial",
+                    fill: "#fff"
+                });
                 time.timeLabel.anchor.setTo(0.5, 0);
                 time.timeLabel.align = 'center';
 
-                time.gameTimer = game.time.events.loop(100, function () {
+                time.gameTimer = game.time.events.loop(100, function() {
                     //time.this.updateTimer();
                 });
 
@@ -232,39 +245,57 @@
                 maleNinja.animations.add('attack', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 30, true);
                 maleNinja.animations.add('jump', [20, 21, 22, 23, 24, 25]);
 
+
+                // kunai
+                bullets = game.add.group();
+                bullets.enableBody = true;
+                bullets.physicsBodyType = Phaser.Physics.Arcade;
+                bullets.createMultiple(20, 'kunai');
+                bullets.setAll('anchor.x', 0.5);
+                bullets.setAll('anchor.y', 1);
+                bullets.setAll('scale.x', 0.5);
+                bullets.setAll('scale.y', 1);
+                bullets.setAll('outOfBoundsKill', true);
+                bullets.setAll('checkWorldBounds', true);
+
+                game.physics.arcade.enable(bullets);
+
+
                 // Keystates
                 playerOneKeyState = {
                     right: this.input.keyboard.addKey(Phaser.Keyboard.RIGHT),
                     left: this.input.keyboard.addKey(Phaser.Keyboard.LEFT),
                     up: this.input.keyboard.addKey(Phaser.Keyboard.UP),
-                    attack: this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_1)
+                    attack: this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_1),
+                    fire: this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_2)
                 };
 
                 playerTwoKeyState = {
                     right: this.input.keyboard.addKey(Phaser.Keyboard.D),
                     left: this.input.keyboard.addKey(Phaser.Keyboard.A),
                     up: this.input.keyboard.addKey(Phaser.Keyboard.W),
-                    attack: this.input.keyboard.addKey(Phaser.Keyboard.H)
+                    attack: this.input.keyboard.addKey(Phaser.Keyboard.H),
+                    fire: this.input.keyboard.addKey(Phaser.Keyboard.J)
                 };
 
             },
 
-            update: function () {
+            update: function() {
                 game.physics.arcade.collide(maleNinja, platforms);
                 game.physics.arcade.collide(femaleNinja, platforms);
                 maleNinja.body.velocity.x = 0;
                 femaleNinja.body.velocity.x = 0;
 
                 function spriteControlsEngine(sprite, controls) {
-
+                    var spriteScale = sprite.scale;
                     if (!sprite.body.touching.down) {
 
                         if (controls.left.isDown) {
                             sprite.body.velocity.x = -150;
-                            sprite.scale.setTo(-0.7, 0.7);
+                            spriteScale.setTo(-0.7, 0.7);
                         } else if (controls.right.isDown) {
                             sprite.body.velocity.x = 150;
-                            sprite.scale.setTo(0.7, 0.7);
+                            spriteScale.setTo(0.7, 0.7);
                         }
 
                     } else if (controls.up.isDown) {
@@ -275,7 +306,7 @@
 
                         sprite.animations.play('left');
                         sprite.body.velocity.x = -150;
-                        sprite.scale.setTo(-0.7, 0.7);
+                        spriteScale.setTo(-0.7, 0.7);
                         audio.playRunningSound();
 
                     } else if (controls.attack.isDown) {
@@ -287,7 +318,7 @@
 
                         sprite.animations.play('right');
                         sprite.body.velocity.x = 150;
-                        sprite.scale.setTo(0.7, 0.7);
+                        spriteScale.setTo(0.7, 0.7);
                         audio.playRunningSound();
 
                     } else {
@@ -299,6 +330,24 @@
                         audio.playMaleJumpingSound();
                         sprite.body.velocity.y = -420;
                     }
+                    //
+
+                    if (controls.fire.isDown) {
+                        fireBullet();
+                    }
+
+                    function fireBullet() {
+                        if (game.time.now > bulletTime) {
+                            let bullet = bullets.getFirstExists(false);
+                            if (bullet) {
+                                bullet.reset(sprite.x, sprite.y);
+
+                                bullet.body.velocity.x = +100;
+
+                                bulletTime = game.time.now + 200;
+                            }
+                        }
+                    }
                 }
 
                 spriteControlsEngine(maleNinja, playerOneKeyState);
@@ -307,7 +356,7 @@
         };
 
         return {
-            start: function () {
+            start: function() {
                 game.state.add('gameState', gameState);
                 game.state.start('gameState');
 
@@ -315,4 +364,4 @@
             }
         };
     });
-} ());
+}());
