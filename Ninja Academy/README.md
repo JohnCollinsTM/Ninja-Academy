@@ -8,7 +8,7 @@ npm install live-server -g
 live-server
 ```
 
-[Video Intro](https://youtube.com)
+[Video Intro](https://www.youtube.com/watch?v=v2Xmsr4Y7e0&feature=youtu.be)
 
 [Github repository](https://github.com/JohnCollinsTM/Ninja-Academy/tree/master/Ninja%20Academy)
 
